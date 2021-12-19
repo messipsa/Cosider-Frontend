@@ -25,9 +25,9 @@ const NavCust = ({active, onSelect, props}) => {
             <Navbar.Brand style={BrandStyle}>Cosider Travaux Publics</Navbar.Brand>
              <Nav pullRight {...props} activeKey={active} onSelect={onSelect} style={styles}>
                  <Nav.Item 
-                 eventKey='employés'
+                 eventKey='employes'
                  onClick={()=>{
-                     history.push('/employés')
+                     history.push('/employes')
                  }}>
                      Employés
                  </Nav.Item>

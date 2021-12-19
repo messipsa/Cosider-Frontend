@@ -10,11 +10,13 @@ import Projets from './components/Projets'
 import NavCust from './components/NavCust';
 
 function App() {
+  const [active, setActive] = React.useState("employés");
+
   return (
    <Router>
-     <NavCust />
+     <NavCust appearance="tabs" active={active} onSelect={setActive}/>
      <Switch>
-       <Route path="/employes"/>
+       <Route path="/employes" component={DataGrid}/>
        <Route path="/projets" component={Projets}/>
      </Switch>
    </Router>
