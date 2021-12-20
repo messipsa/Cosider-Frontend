@@ -53,17 +53,17 @@ const DataGrid = () => {
                   onRowClick={(data)=>{
                       console.log(data)
                   }}>
-                      <Column>
+                      <Column >
                       <HeaderCell>Matricule</HeaderCell>
                       <Cell dataKey="matricule"></Cell>
                       </Column>
 
-                      <Column>
+                      <Column >
                       <HeaderCell>Nom</HeaderCell>
                       <Cell dataKey="nom"></Cell>
                       </Column>
 
-                      <Column >
+                      <Column width={120} fixed="right">
                       <HeaderCell></HeaderCell>
                       <Cell>
                          { (rowData) =>{
@@ -71,7 +71,7 @@ const DataGrid = () => {
                                  history.push(path=`${url}/details` , {user : rowData})
                              }
                              return(
-                                <ButtonToolbar style={{ marginTop: -5 } } pullRight>
+                                <ButtonToolbar style={{ marginTop: -5 } } align='right'>
                                 <Button
                                   onClick={showDetails}
                                   appearance="primary"

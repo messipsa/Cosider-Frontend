@@ -14,11 +14,13 @@ function App() {
 
   return (
    <Router>
+     <div className='container'>
      <NavCust appearance="tabs" active={active} onSelect={setActive}/>
      <Switch>
        <Route path="/employes" component={DataGrid}/>
        <Route path="/projets" component={Projets}/>
      </Switch>
+     </div>
    </Router>
   );
 }
