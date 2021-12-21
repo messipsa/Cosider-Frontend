@@ -16,7 +16,6 @@ const DataGrid = () => {
     let {path , url} = useRouteMatch();
     const history = useHistory();
     const {innerHeight} = window;
-
     const [employees , setEmployees] = React.useState([]);
     const [loadingEmployees , setLoadingEmployees] = React.useState(false);
     
@@ -42,7 +41,8 @@ const DataGrid = () => {
     return (
 
           <Switch>
-              <Route path={`${path}/details`} component={Details}/>
+              <Route path={`${path}/details`} component={Details} />
+                  
               <Route path={path} >
                   <Table
                   virtualized
@@ -50,6 +50,7 @@ const DataGrid = () => {
                   data={employees}
                   loading={loadingEmployees}
                   rowHeight={50}
+                  style={{marginLeft : 10}}
                   onRowClick={(data)=>{
                       console.log(data)
                   }}>
@@ -58,9 +59,14 @@ const DataGrid = () => {
                       <Cell dataKey="matricule"></Cell>
                       </Column>
 
-                      <Column >
+                      <Column width={200}>
                       <HeaderCell>Nom</HeaderCell>
                       <Cell dataKey="nom"></Cell>
+                      </Column>
+
+                      <Column >
+                      <HeaderCell>Projet</HeaderCell>
+                      <Cell dataKey="projet.entite"></Cell>
                       </Column>
 
                       <Column width={120} fixed="right">
@@ -68,7 +74,7 @@ const DataGrid = () => {
                       <Cell>
                          { (rowData) =>{
                              const showDetails = () =>{
-                                 history.push(path=`${url}/details` , {user : rowData})
+                                 history.push(path=`${path}/details` , {user : rowData})
                              }
                              return(
                                 <ButtonToolbar style={{ marginTop: -5 } } align='right'>
