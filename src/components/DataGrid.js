@@ -18,13 +18,15 @@ const DataGrid = () => {
     const {innerHeight} = window;
     const [employees , setEmployees] = React.useState([]);
     const [loadingEmployees , setLoadingEmployees] = React.useState(false);
-    
+    //window.addEventListener('focus', () => getEmployees());
+    //window.location.reload();
 
     React.useEffect(()=>{
        getEmployees();
     } , [])
 
     const getEmployees = () =>{
+        console.log("obligé")
         setLoadingEmployees(true);
         axios.get("http://localhost:5000/api/employes")
         .then(response=>{
