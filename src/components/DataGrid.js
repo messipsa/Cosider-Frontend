@@ -25,7 +25,7 @@ const DataGrid = () => {
     } , [])
 
     const getEmployees = () =>{
-        setEmployees(true);
+        setLoadingEmployees(true);
         axios.get("http://localhost:5000/api/employes")
         .then(response=>{
              setEmployees(response.data);
@@ -41,7 +41,7 @@ const DataGrid = () => {
     return (
 
           <Switch>
-              <Route path={`${path}/details`} component={Details} />
+              <Route path={`${path}/details/:id`} component={Details} />
                   
               <Route path={path} >
                   <Table
@@ -74,7 +74,7 @@ const DataGrid = () => {
                       <Cell>
                          { (rowData) =>{
                              const showDetails = () =>{
-                                 history.push(path=`${path}/details` , {user : rowData})
+                                 history.push(path=`${path}/details/${rowData._id}` , {user : rowData})
                              }
                              return(
                                 <ButtonToolbar style={{ marginTop: -5 } } align='right'>
