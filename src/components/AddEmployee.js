@@ -25,10 +25,72 @@ const AddEmployee = () => {
      const [periode , setPeriode] = React.useState('')
 
 
+
+     const [nom , setNom] = React.useState('');
+     const [matricule , setMatricule] = React.useState('');
+     const [adress , setAdress] = React.useState('');
+     const [lieuNaiss , setLieuNaiss] = React.useState('');
+     const [dateNaiss , setDateNaiss] = React.useState('');
+
+
     return (
-        <Panel header="Information employé" bordered style={{marginTop : 20}}>
+        <Panel header="Ajout d'un nouvel employé" bordered style={{marginTop : 20 }}>
+
+<FlexboxGrid style={{marginTop : 50}} justify="space-between">
+         
+         <FlexboxGridItem colspan={7}>
+         <label>Matricule:</label>
+         <Input  
+         style={styles} 
+         value={matricule}/>
+         </FlexboxGridItem>
+
+         <FlexboxGridItem colspan={7}>
+             <label>Nom:</label>
+             <Input 
+             
+             value={nom}
+             style={styles}
+             onChange={(newValue)=>{
+               setNom(newValue);
+             }}/>
+         </FlexboxGridItem>
+
+         <FlexboxGridItem colspan={7}>
+             <label>Date de naiss:</label>
+             <Input 
+             
+             value={dateNaiss}
+             style={styles}
+             onChange={(newValue)=>{
+               setDateNaiss(newValue);
+             }}/>
+         </FlexboxGridItem>
+         </FlexboxGrid>
+
+     
+         <label>Lieu de naiss:</label>
+        <Input
+         
+          style={styles}
+          value={lieuNaiss}
+          onChange={(newValue) => {
+            setLieuNaiss(newValue);
+          }}
+        />
+
+        <label>Adresse:</label>
+        <Input
+          
+          style={styles}
+          value={adress}
+          onChange={(newValue) => { 
+            setAdress(newValue);
+          }}
+        />
+
         <FlexboxGrid justify="space-between">
-        
+            
         <FlexboxGridItem colspan={7}>
           <label>Numero:</label>
             <Input
