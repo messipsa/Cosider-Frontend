@@ -9,6 +9,7 @@ import { BrowserRouter as Router,
 } from 'react-router-dom';
 import axios from "axios";
 import Details from "./Details";
+import AddEmployee from "./AddEmployee";
 const {Cell ,HeaderCell , Column} = Table;
 
 const DataGrid = () => {
@@ -41,21 +42,33 @@ const DataGrid = () => {
         
     }
 
+
+    const addEmployee=()=>{
+        history.push(`${path}/ajouter`);
+    }
+
     
 
     return (
         <>
-          <Button
-              appearance="primary"
-              color="red"
-              style={{margin : 30 , marginLeft : window.innerWidth - 200}}>
-               Ajouter
-              </Button>
+          
           <Switch>
+
               
               <Route path={`${path}/details/:id`} component={Details} />
+
+              <Route path={`${path}/ajouter`} component={AddEmployee}/>
                   
               <Route path={path} >
+
+              <Button
+            onClick = {addEmployee}
+              appearance="primary"
+              color="red"
+              style={{margin : 30 , marginLeft : window.innerWidth - 300}}>
+               Ajouter nouvel employé
+              </Button>
+
                   <Table
                   virtualized
                   height={innerHeight - 200}
