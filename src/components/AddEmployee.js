@@ -1,5 +1,6 @@
 import React from 'react'
-import {Panel ,Button , FlexboxGrid , Input ,Loader } from 'rsuite'
+import axios from 'axios'
+import {Panel ,Button , FlexboxGrid , Input ,Loader , Dropdown } from 'rsuite'
 import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 
 const styles = {
@@ -31,6 +32,78 @@ const AddEmployee = () => {
      const [adress , setAdress] = React.useState('');
      const [lieuNaiss , setLieuNaiss] = React.useState('');
      const [dateNaiss , setDateNaiss] = React.useState('');
+
+     const [projets , setProjets] = React.useState([])
+
+     React.useEffect(()=>{
+         getProjets()
+     },[])
+
+
+     const getProjets = ()=>{
+        var axios = require('axios');
+        var data = '';
+        
+        var config = {
+          method: 'get',
+          url: 'http://localhost:5000/api/projets',
+          headers: { },
+          data : data
+        };
+        
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setProjets(JSON.stringify(response.data))
+          console.log(setProjets)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+     }
+
+     const addEmployee = ()=>{
+        var data = JSON.stringify({
+            "matricule": matricule,
+            "nom": nom,
+            "adresse": adress,
+            "projetId": "61b54ad80232c7e9b6c9d043",
+            "lieu_naissance": lieuNaiss,
+            "date_naissance": dateNaiss,
+            "contrat": {
+              "numero": numero,
+              "salaire": salaire,
+              "salaire_lettres": salaireLettres,
+              "groupe": groupe,
+              "section": section,
+              "categorie": categorie,
+              "date_debut": dateDebut,
+              "date_fin": dateFin,
+              "statut": statut,
+              "poste_travail": poste,
+              "affectation": affectation,
+              "periode_essai": periode
+            }
+          });
+          
+          var config = {
+            method: 'post',
+            url: 'http://localhost:5000/api/employes/ajouter',
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : data
+          };
+          
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+     }
 
 
     return (
@@ -89,7 +162,7 @@ const AddEmployee = () => {
           }}
         />
 
-        <FlexboxGrid justify="space-between">
+        <FlexboxGrid style={{marginTop : 40}} justify="space-between">
             
         <FlexboxGridItem colspan={7}>
           <label>Numero:</label>
@@ -102,14 +175,15 @@ const AddEmployee = () => {
          </FlexboxGridItem>
  
         <FlexboxGridItem colspan={7}>
-          <label>Projet:</label>
-          <Input 
-          
-          style={styles} 
-          value={project}
-          onChange={(newValue)=>{
-             setProject(newValue);
-           }}/>
+        <Dropdown  title="entite" style={styles}>
+    <Dropdown.Item>New File</Dropdown.Item>
+    <Dropdown.Item>New File with Current Profile</Dropdown.Item>
+    <Dropdown.Item>Download As...</Dropdown.Item>
+    <Dropdown.Item>Export PDF</Dropdown.Item>
+    <Dropdown.Item>Export HTML</Dropdown.Item>
+    <Dropdown.Item>Settings</Dropdown.Item>
+    <Dropdown.Item>About</Dropdown.Item>
+  </Dropdown>
          </FlexboxGridItem>
  
          <FlexboxGridItem colspan={7}>
@@ -274,6 +348,9 @@ const AddEmployee = () => {
           </Button>
        </FlexboxGrid.Item>
        </FlexboxGrid>
+
+      
+
        </Panel>
     )
 }
