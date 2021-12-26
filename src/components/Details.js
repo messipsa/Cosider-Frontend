@@ -14,7 +14,6 @@ import { useLocation, useRouteMatch } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Contrat from './Contrat'
 
-
 const styles = {
     marginTop:5,
     marginBottom:5,
@@ -23,24 +22,22 @@ const styles = {
 
 const Details = () => {
     const {path , url} = useRouteMatch()
-    const history = useHistory();
-    console.log(history.location.state)
+  const history = useHistory();
     const location = useLocation();
     const identifiant = JSON.stringify(useParams().id);
-    console.log(identifiant)
+  const employeeId = localStorage.getItem('employeeId');
+  const employeeData = JSON.parse(localStorage.getItem('employeeData'));
     //const [employee ,setEmployee] = React.useState([]);
-    const employee = location.state.user /*React.useMemo(()=>{ 
+  const [employee, setEmployee] = React.useState((employeeId && history.location.state.user && employeeId === history?.location?.state?.user?._id) ? employeeData : history.location.state.user); /*React.useMemo(()=>{
       return location.state.user
     },[identifiant])*/
-    console.log(employee)
     const date_naissance = String(location.state.user.date_naissance);
     const res = date_naissance.substring(0,10);
     const [isReadOnly , setIsReadOnly] = React.useState(true);
-    const [nom , setNom] = React.useState(employee.nom);
-    console.log(nom)
-    const [adress , setAdress] = React.useState(employee.adresse)
-    const [lieuNaiss , setLieuNaiss] = React.useState(employee.lieu_naissance);
-    const [dateNaiss , setDateNaiss] = React.useState(employee.date_naissance.substring(0,10));
+  const [nom, setNom] = React.useState(employee?.nom);
+  const [adress, setAdress] = React.useState(employee?.adresse)
+  const [lieuNaiss, setLieuNaiss] = React.useState(employee?.lieu_naissance);
+  const [dateNaiss, setDateNaiss] = React.useState(employee?.date_naissance?.substring(0, 10));
     const [loadingModify , setLoadingModify] = React.useState(false);
     const [Travailleur , setTravailleur] = React.useState(false);
 
@@ -87,7 +84,7 @@ const Details = () => {
           
           var config = {
             method: 'put',
-            url: `http://localhost:5000/api/employes/modifier/${employee._id}`,
+            url: `https://cosider-backend.herokuapp.com/api/employes/modifier/${employee._id}`,
             headers: { 
               'Content-Type': 'application/json'
             },
@@ -97,17 +94,13 @@ const Details = () => {
           setLoadingModify(true);
           axios(config)
           .then(function (response) {
-            console.log(JSON.stringify(response.data));
+            localStorage.setItem('employeeId', response.data._id);
+            localStorage.setItem('employeeData', JSON.stringify(response.data));
             setLoadingModify(false)
-            alert("c est une plaisir")
-           
+            alert("c est une plaisir");
         })
-          .catch(function (error) {
-            console.log(error);
-            console.log(`le id ${employee._id}`)
-
+            .catch(function (error) {
             setTimeout(setLoadingModify(false), 3000);
-
             alert("ce n'est pas une plaisir")
             return(
                 <Message showIcon type="error">

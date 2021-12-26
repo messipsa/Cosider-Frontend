@@ -15,8 +15,7 @@ const styles = {
     marginBottom:5,
 }
 
-const Contrat = ({employee , history}) => {
-     //Contrat
+const Contrat = ({ employee, history }) => {
      const [lecture , setLecture] = React.useState(true);
      const [attenteModifier , setAttenteModifier] =React.useState(false);
      const [project , setProject] = React.useState(employee.projet.entite)
@@ -45,13 +44,13 @@ const Contrat = ({employee , history}) => {
           
           var config = {
             method: 'put',
-            url: `http://localhost:5000/api/contrats/renouveler/${employee._id}`,
+            url: `https://cosider-backend.herokuapp.com/api/contrats/renouveler/${employee._id}`,
             headers: { 
               'Content-Type': 'application/json'
             },
             data : data
           };
-          
+       console.log(data);
           setAttenteModifier(true)
           axios(config)
           .then(function (response) {

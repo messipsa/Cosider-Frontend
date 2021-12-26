@@ -30,7 +30,7 @@ const DataGrid = () => {
     const getEmployees = () =>{
         console.log("obligé")
         setLoadingEmployees(true);
-        axios.get("http://localhost:5000/api/employes")
+        axios.get("https://cosider-backend.herokuapp.com/api/employes")
         .then(response=>{
              setEmployees(response.data);
              setLoadingEmployees(false);
@@ -110,7 +110,7 @@ const DataGrid = () => {
                         
                         var config = {
                           method: 'delete',
-                          url: `http://localhost:5000/api/employes/supprimer/${rowData._id}`,
+                          url: `https://cosider-backend.herokuapp.com/api/employes/supprimer/${rowData._id}`,
                           headers: { },
                           data : data
                         };
