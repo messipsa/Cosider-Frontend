@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table , Loader , ButtonToolbar , Button } from "rsuite";
+import { Table , Loader , ButtonToolbar , Button ,ButtonGroup } from "rsuite";
 import { BrowserRouter as Router,
     Switch,
     Route,
@@ -18,6 +18,7 @@ const DataGrid = () => {
     const {innerHeight} = window;
     const [employees , setEmployees] = React.useState([]);
     const [loadingEmployees , setLoadingEmployees] = React.useState(false);
+    const [loadingDeletion , setLoadingDeletion] = React.useState(false);
     //window.addEventListener('focus', () => getEmployees());
     //window.location.reload();
 
@@ -40,15 +41,25 @@ const DataGrid = () => {
         
     }
 
-    return (
+    
 
+    return (
+        <>
+          <Button
+              appearance="primary"
+              color="red"
+              style={{margin : 30 , marginLeft : window.innerWidth - 200}}>
+               Ajouter
+              </Button>
           <Switch>
+              
               <Route path={`${path}/details/:id`} component={Details} />
                   
               <Route path={path} >
                   <Table
                   virtualized
                   height={innerHeight - 200}
+                 
                   data={employees}
                   loading={loadingEmployees}
                   rowHeight={50}
@@ -71,15 +82,46 @@ const DataGrid = () => {
                       <Cell dataKey="projet.entite"></Cell>
                       </Column>
 
-                      <Column width={120} fixed="right">
+                      <Column width={290} fixed="right">
                       <HeaderCell></HeaderCell>
                       <Cell>
                          { (rowData) =>{
                              const showDetails = () =>{
                                  history.push(path=`${path}/details/${rowData._id}` , {user : rowData})
                              }
+
+                             const deleteEmployee = ()=> {
+                                setLoadingDeletion(true);
+                                console.log("identifiant : "+ rowData._id)
+                                var data = '';
+                        
+                        var config = {
+                          method: 'delete',
+                          url: `http://localhost:5000/api/employes/supprimer/${rowData._id}`,
+                          headers: { },
+                          data : data
+                        };
+                        
+                        axios(config)
+                        .then(response=> {
+                            
+                          console.log(JSON.stringify(response.data));
+                          alert("c'est une plair ")
+                          setLoadingDeletion(false)
+                        })
+                        .catch(error=> {
+                          console.log(error);
+                          alert("ce n'est pas une plaisir")
+                          setLoadingDeletion(false)
+                        });
+                       // window.location.reload()
+                         }
                              return(
+                                 <>
                                 <ButtonToolbar style={{ marginTop: -5 } } align='right'>
+                                
+    
+  
                                 <Button
                                   onClick={showDetails}
                                   appearance="primary"
@@ -88,7 +130,21 @@ const DataGrid = () => {
                                 >
                                   Details
                                 </Button>
+                              
+
+                              
+                                <Button
+                                  style={{ marginLeft: 15 } }
+                                  onClick={deleteEmployee}
+                                  appearance="primary"
+                                  color="red"
+                                  
+                                >
+                                  Supprimer
+                                </Button>
+                                
                               </ButtonToolbar>
+                              </>
                              );
                          }
                          } 
@@ -99,7 +155,7 @@ const DataGrid = () => {
                   </Table>
                   </Route>
           </Switch>
-
+          </>
     )
 }
 
