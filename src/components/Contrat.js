@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { Panel, Input, FlexboxGrid, Button, Message, Loader } from "rsuite";
 import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const styles = {
   marginTop: 5,
@@ -9,7 +11,9 @@ const styles = {
 };
 
 const Contrat = ({ employee, history }) => {
-  console.log(JSON.parse(employee).projet.entite);
+  const location = useLocation();
+
+  console.log(JSON.parse(employee));
   const [lecture, setLecture] = React.useState(true);
   const [attenteModifier, setAttenteModifier] = React.useState(false);
   const [project, setProject] = React.useState(
@@ -59,12 +63,24 @@ const Contrat = ({ employee, history }) => {
   const saveContract = () => {
     setLecture(true);
     var data = JSON.stringify({
+      numero: numero,
       entite: project,
+      date_debut: dateDebut,
+      salaire: salaire,
+      salaire_lettres: salaireLettres,
+      groupe: groupe,
+      section: section,
+      statut: statut,
+      categorie: categorie,
+      poste_travail: poste,
+      affectation: affectation,
+      periode_essai: periode,
+      date_fin: dateFin,
     });
 
     var config = {
       method: "put",
-      url: `https://cosider-backend.herokuapp.com/api/contrats/renouveler/${
+      url: `http://localhost:5000/api/contrats/renouveler/${
         JSON.parse(employee)._id
       }`,
       headers: {
@@ -78,7 +94,10 @@ const Contrat = ({ employee, history }) => {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setAttenteModifier(false);
+        localStorage.setItem("employeeId", response.data._id);
+        localStorage.setItem("employeeData", JSON.stringify(response.data));
         alert("c est une plaisir");
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
