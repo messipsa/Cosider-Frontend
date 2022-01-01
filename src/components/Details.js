@@ -36,28 +36,7 @@ const Details = () => {
   const [loadingModify, setLoadingModify] = React.useState(false);
   const [Travailleur, setTravailleur] = React.useState(false);
 
-  React.useEffect(() => {
-    //history.goBack();
-    //history.goForward();
-  }, []);
-  /*React.useEffect(()=>{
-        getEmployee();
-    } , [])
-
-    const getEmployee = () =>{
-        setTravailleur(true)
-        axios.get(`http://localhost:5000/api/employes/${identifiant}`)
-        .then(res=>{
-           setEmployee(JSON.stringify(res.data));
-           console.log(res.data)
-           setTravailleur(false);
-           console.log(employee);
-        })
-        .catch(err=>{
-            setTravailleur(false);
-            console.log(err)
-        })
-    }   */
+  React.useEffect(() => {}, []);
 
   const modifyEmployee = () => {
     setIsReadOnly(false);
@@ -90,6 +69,7 @@ const Details = () => {
         localStorage.setItem("employeeData", JSON.stringify(response.data));
         setLoadingModify(false);
         alert("c est une plaisir");
+        window.location.reload();
       })
       .catch(function (error) {
         setTimeout(setLoadingModify(false), 3000);
@@ -176,18 +156,6 @@ const Details = () => {
               )}
             </Button>
           </FlexboxGrid.Item>
-
-          <FlexboxGridItem>
-            <Button
-              style={{ marginTop: 20, marginRight: 10, width: 100 }}
-              appearance="ghost"
-              onClick={() => {
-                history.goBack();
-              }}
-            >
-              Supprimer
-            </Button>
-          </FlexboxGridItem>
         </FlexboxGrid>
       </Panel>
 
