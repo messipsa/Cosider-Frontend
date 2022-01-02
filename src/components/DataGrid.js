@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import Details from "./Details";
 import AddEmployee from "./AddEmployee";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { useLocation } from "react-router-dom";
 const { Cell, HeaderCell, Column } = Table;
 
 const DataGrid = () => {
