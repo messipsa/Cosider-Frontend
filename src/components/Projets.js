@@ -12,6 +12,7 @@ import { Button, Table, ButtonToolbar } from "rsuite";
 
 import axios from "axios";
 import ModifyProject from "./ModifyProject";
+import AddProject from "./AddProject";
 
 const Projets = () => {
   const { url, path } = useRouteMatch();
@@ -50,15 +51,22 @@ const Projets = () => {
       });
   };
 
+  const addProject = () => {
+    history.push(`${path}/ajouter`);
+  };
+
   return (
     <Switch>
       <Route path={`${path}/modifier/:id`} component={ModifyProject} />
+
+      <Route path={`${path}/ajouter`} component={AddProject} />
 
       <Route path={path}>
         <Button
           appearance="primary"
           color="red"
           style={{ margin: 30, marginLeft: window.innerWidth - 300 }}
+          onClick={addProject}
         >
           Ajouter nouveau projet
         </Button>
