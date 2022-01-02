@@ -53,7 +53,7 @@ const Details = () => {
 
     var config = {
       method: "put",
-      url: `https://cosider-backend.herokuapp.com/api/employes/modifier/${
+      url: `http://localhost:5000/api/employes/modifier/${
         JSON.parse(employee)._id
       }`,
       headers: {
@@ -67,13 +67,14 @@ const Details = () => {
       .then(function (response) {
         localStorage.setItem("employeeId", response.data._id);
         localStorage.setItem("employeeData", JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data));
         setLoadingModify(false);
-        alert("c est une plaisir");
+        alert("Informations d'employé modifiées avec succès");
         window.location.reload();
       })
       .catch(function (error) {
         setTimeout(setLoadingModify(false), 3000);
-        alert("ce n'est pas une plaisir");
+        alert("Echec de la modification d'informations d'employé");
         return (
           <Message showIcon type="error">
             Error
