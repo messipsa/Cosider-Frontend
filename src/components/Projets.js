@@ -11,6 +11,7 @@ import {
 import { Button, Table, ButtonToolbar } from "rsuite";
 
 import axios from "axios";
+import ModifyProject from "./ModifyProject";
 
 const Projets = () => {
   const { url, path } = useRouteMatch();
@@ -51,6 +52,8 @@ const Projets = () => {
 
   return (
     <Switch>
+      <Route path={`${path}/modifier/:id`} component={ModifyProject} />
+
       <Route path={path}>
         <Button
           appearance="primary"
@@ -89,10 +92,19 @@ const Projets = () => {
             <HeaderCell></HeaderCell>
             <Cell>
               {(rowData) => {
+                const modifyProject = () => {
+                  history.push(`${path}/modifier/${rowData._id}`);
+                  localStorage.setItem("projectId", rowData._id);
+                  localStorage.setItem("project", JSON.stringify(rowData));
+                };
                 return (
                   <>
                     <ButtonToolbar style={{ marginTop: -5 }} align="right">
-                      <Button appearance="primary" color="red">
+                      <Button
+                        appearance="primary"
+                        color="red"
+                        onClick={modifyProject}
+                      >
                         Modifier
                       </Button>
                     </ButtonToolbar>

@@ -43,7 +43,6 @@ const Details = () => {
   };
 
   const saveModification = () => {
-    setIsReadOnly(true);
     var data = JSON.stringify({
       nom: nom,
       adresse: adress,
@@ -70,16 +69,13 @@ const Details = () => {
         console.log(JSON.stringify(response.data));
         setLoadingModify(false);
         alert("Informations d'employé modifiées avec succès");
+        setIsReadOnly(true);
         window.location.reload();
       })
       .catch(function (error) {
         setTimeout(setLoadingModify(false), 3000);
         alert("Echec de la modification d'informations d'employé");
-        return (
-          <Message showIcon type="error">
-            Error
-          </Message>
-        );
+        setIsReadOnly(true);
       });
   };
 
