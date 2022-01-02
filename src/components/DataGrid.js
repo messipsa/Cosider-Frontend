@@ -11,11 +11,13 @@ import {
 import axios from "axios";
 import Details from "./Details";
 import AddEmployee from "./AddEmployee";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 const { Cell, HeaderCell, Column } = Table;
 
 const DataGrid = () => {
   let { path, url } = useRouteMatch();
   const history = useHistory();
+  const location = useLocation();
   const { innerHeight } = window;
   const [employees, setEmployees] = React.useState([]);
   const [loadingEmployees, setLoadingEmployees] = React.useState(false);
@@ -121,12 +123,13 @@ const DataGrid = () => {
                     axios(config)
                       .then((response) => {
                         console.log(JSON.stringify(response.data));
-                        alert("c'est une plair ");
+                        alert("Employé supprimé avec succès ");
                         setLoadingDeletion(false);
+                        window.location.reload();
                       })
                       .catch((error) => {
                         console.log(error);
-                        alert("ce n'est pas une plaisir");
+                        alert("Echec de la suppression de l'employé");
                         setLoadingDeletion(false);
                       });
                     // window.location.reload()

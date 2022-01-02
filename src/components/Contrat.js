@@ -96,13 +96,17 @@ const Contrat = ({ employee, history }) => {
         setAttenteModifier(false);
         localStorage.setItem("employeeId", response.data._id);
         localStorage.setItem("employeeData", JSON.stringify(response.data));
-        alert("c est une plaisir");
+        alert("Contrat renouvelé avec succès");
         window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
         setAttenteModifier(false);
-        alert("ce n'est pas une plaisir");
+        if (error.message === "Request failed with status code 400") {
+          alert("Matricule déja existant dans ce projet");
+        } else {
+          alert("Tous les chmaps doivent etre remplis correctement");
+        }
       });
   };
 
