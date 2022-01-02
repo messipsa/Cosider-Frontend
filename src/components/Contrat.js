@@ -61,7 +61,6 @@ const Contrat = ({ employee, history }) => {
   };
 
   const saveContract = () => {
-    setLecture(true);
     var data = JSON.stringify({
       numero: numero,
       entite: project,
@@ -97,11 +96,13 @@ const Contrat = ({ employee, history }) => {
         localStorage.setItem("employeeId", response.data._id);
         localStorage.setItem("employeeData", JSON.stringify(response.data));
         alert("Contrat renouvelé avec succès");
+        setLecture(true);
         window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
         setAttenteModifier(false);
+        setLecture(true);
         if (error.message === "Request failed with status code 400") {
           alert("Matricule déja existant dans ce projet");
         } else {
