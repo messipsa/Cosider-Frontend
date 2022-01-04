@@ -73,7 +73,7 @@ const Details = () => {
         window.location.reload();
       })
       .catch(function (error) {
-        setTimeout(setLoadingModify(false), 3000);
+        setTimeout(setLoadingModify(false), 1000);
         alert("Echec de la modification d'informations d'employé");
         setIsReadOnly(true);
       });
