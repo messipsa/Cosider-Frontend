@@ -37,6 +37,9 @@ const Contrat = ({ employee, history }) => {
   const [salaireLettres, setSalaireLettres] = React.useState(
     JSON.parse(employee).contrat.salaire_lettres
   );
+  const [classification, setClassification] = React.useState(
+    JSON.parse(employee).contrat.classification
+  );
   const [statut, setStatut] = React.useState(
     JSON.parse(employee).contrat.statut
   );
@@ -75,6 +78,7 @@ const Contrat = ({ employee, history }) => {
       affectation: affectation,
       periode_essai: periode,
       date_fin: dateFin,
+      classification: classification,
     });
 
     var config = {
@@ -114,7 +118,7 @@ const Contrat = ({ employee, history }) => {
   return (
     <Panel header="Information employé" bordered style={{ marginTop: 20 }}>
       <FlexboxGrid justify="space-between">
-        <FlexboxGridItem colspan={7}>
+        <FlexboxGridItem colspan={10}>
           <label>Numero:</label>
           <Input
             readOnly={lecture}
@@ -126,7 +130,7 @@ const Contrat = ({ employee, history }) => {
           />
         </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={7}>
+        <FlexboxGridItem colspan={10}>
           <label>Projet:</label>
           <Input
             readOnly={lecture}
@@ -137,8 +141,10 @@ const Contrat = ({ employee, history }) => {
             }}
           />
         </FlexboxGridItem>
+      </FlexboxGrid>
 
-        <FlexboxGridItem colspan={7}>
+      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+        <FlexboxGridItem colspan={10}>
           <label>Poste:</label>
           <Input
             readOnly={lecture}
@@ -146,6 +152,18 @@ const Contrat = ({ employee, history }) => {
             value={poste}
             onChange={(newValue) => {
               setPoste(newValue);
+            }}
+          />
+        </FlexboxGridItem>
+
+        <FlexboxGridItem colspan={10}>
+          <label>Classification:</label>
+          <Input
+            readOnly={lecture}
+            style={styles}
+            value={classification}
+            onChange={(newValue) => {
+              setClassification(newValue);
             }}
           />
         </FlexboxGridItem>

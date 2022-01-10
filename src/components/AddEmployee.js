@@ -26,6 +26,7 @@ const AddEmployee = () => {
   const [groupe, setGroupe] = React.useState("");
   const [section, setSection] = React.useState("");
   const [periode, setPeriode] = React.useState("");
+  const [classification, setClassification] = React.useState("");
 
   const [nom, setNom] = React.useState("");
   const [matricule, setMatricule] = React.useState("");
@@ -82,6 +83,7 @@ const AddEmployee = () => {
         poste_travail: poste,
         affectation: affectation,
         periode_essai: periode,
+        classification: classification,
       },
     });
 
@@ -170,7 +172,7 @@ const AddEmployee = () => {
       />
 
       <FlexboxGrid style={{ marginTop: 40 }} justify="space-between">
-        <FlexboxGridItem colspan={7}>
+        <FlexboxGridItem colspan={10}>
           <label>Numero:</label>
           <Input
             style={styles}
@@ -181,7 +183,7 @@ const AddEmployee = () => {
           />
         </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={7}>
+        <FlexboxGridItem colspan={10}>
           <label>Entite:</label>
           <Input
             style={styles}
@@ -191,14 +193,26 @@ const AddEmployee = () => {
             }}
           />
         </FlexboxGridItem>
-
-        <FlexboxGridItem colspan={7}>
+      </FlexboxGrid>
+      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+        <FlexboxGridItem colspan={10}>
           <label>Poste:</label>
           <Input
             style={styles}
             value={poste}
             onChange={(newValue) => {
               setPoste(newValue);
+            }}
+          />
+        </FlexboxGridItem>
+
+        <FlexboxGridItem colspan={10}>
+          <label>Classification:</label>
+          <Input
+            style={styles}
+            value={classification}
+            onChange={(newValue) => {
+              setClassification(newValue);
             }}
           />
         </FlexboxGridItem>
