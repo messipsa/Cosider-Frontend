@@ -3,6 +3,7 @@ import { Panel, FlexboxGrid, Input, Button, Loader } from "rsuite";
 import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import NavCust from "./NavCust.js";
 
 const styles = {
   marginTop: 5,
@@ -10,6 +11,7 @@ const styles = {
 };
 
 const ModifyProject = () => {
+  const [active, setActive] = React.useState("projets");
   const [isReadOnly, setIsReadOnly] = React.useState(true);
   const [loadingModify, setLoadingModify] = React.useState(false);
   const [projet, setProjet] = React.useState(
@@ -57,54 +59,57 @@ const ModifyProject = () => {
   };
 
   return (
-    <Panel header="Information projet" bordered style={{ marginTop: 20 }}>
-      <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
-        <label>Entite:</label>
-        <Input readOnly style={styles} value={projet.entite} />
-      </FlexboxGrid>
+    <>
+      <NavCust appearance="tabs" active={active} onSelect={setActive} />
+      <Panel header="Information projet" bordered style={{ marginTop: 20 }}>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
+          <label>Entite:</label>
+          <Input readOnly style={styles} value={projet.entite} />
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
-        <label>Lieu:</label>
-        <Input
-          readOnly={isReadOnly}
-          style={styles}
-          value={lieu}
-          onChange={(newValue) => {
-            setLieu(newValue);
-          }}
-        />
-      </FlexboxGrid>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
+          <label>Lieu:</label>
+          <Input
+            readOnly={isReadOnly}
+            style={styles}
+            value={lieu}
+            onChange={(newValue) => {
+              setLieu(newValue);
+            }}
+          />
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
-        <label>Directeur:</label>
-        <Input
-          readOnly={isReadOnly}
-          style={styles}
-          value={directeur}
-          onChange={(newValue) => {
-            setDirecteur(newValue);
-          }}
-        />
-      </FlexboxGrid>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
+          <label>Directeur:</label>
+          <Input
+            readOnly={isReadOnly}
+            style={styles}
+            value={directeur}
+            onChange={(newValue) => {
+              setDirecteur(newValue);
+            }}
+          />
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="end">
-        <FlexboxGridItem>
-          <Button
-            style={{ marginRight: 10, marginTop: 20, width: 100 }}
-            appearance="primary"
-            onClick={isReadOnly ? modifyProject : saveModification}
-          >
-            {isReadOnly ? (
-              <p>Modifier</p>
-            ) : loadingModify ? (
-              <Loader />
-            ) : (
-              <p>Enregistrer</p>
-            )}
-          </Button>
-        </FlexboxGridItem>
-      </FlexboxGrid>
-    </Panel>
+        <FlexboxGrid justify="end">
+          <FlexboxGridItem>
+            <Button
+              style={{ marginRight: 10, marginTop: 20, width: 100 }}
+              appearance="primary"
+              onClick={isReadOnly ? modifyProject : saveModification}
+            >
+              {isReadOnly ? (
+                <p>Modifier</p>
+              ) : loadingModify ? (
+                <Loader />
+              ) : (
+                <p>Enregistrer</p>
+              )}
+            </Button>
+          </FlexboxGridItem>
+        </FlexboxGrid>
+      </Panel>
+    </>
   );
 };
 

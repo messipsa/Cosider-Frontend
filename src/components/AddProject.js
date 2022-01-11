@@ -3,6 +3,7 @@ import { Panel, FlexboxGrid, Input, Button, Loader } from "rsuite";
 import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import NavCust from "./NavCust";
 
 const styles = {
   marginTop: 5,
@@ -10,6 +11,8 @@ const styles = {
 };
 
 const AddProject = () => {
+  const [active, setActive] = React.useState("projets");
+
   const [directeur, setDirecteur] = React.useState("");
   const [lieu, setLieu] = React.useState("");
   const [entite, setEntite] = React.useState("");
@@ -44,52 +47,56 @@ const AddProject = () => {
   };
 
   return (
-    <Panel header="Information projet" bordered style={{ marginTop: 20 }}>
-      <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
-        <label>Entite:</label>
-        <Input
-          style={styles}
-          value={entite}
-          onChange={(newValue) => {
-            setEntite(newValue);
-          }}
-        />
-      </FlexboxGrid>
+    <>
+      <NavCust appearance="tabs" active={active} onSelect={setActive} />
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
-        <label>Lieu:</label>
-        <Input
-          style={styles}
-          value={lieu}
-          onChange={(newValue) => {
-            setLieu(newValue);
-          }}
-        />
-      </FlexboxGrid>
+      <Panel header="Information projet" bordered style={{ marginTop: 20 }}>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
+          <label>Entite:</label>
+          <Input
+            style={styles}
+            value={entite}
+            onChange={(newValue) => {
+              setEntite(newValue);
+            }}
+          />
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
-        <label>Directeur:</label>
-        <Input
-          style={styles}
-          value={directeur}
-          onChange={(newValue) => {
-            setDirecteur(newValue);
-          }}
-        />
-      </FlexboxGrid>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
+          <label>Lieu:</label>
+          <Input
+            style={styles}
+            value={lieu}
+            onChange={(newValue) => {
+              setLieu(newValue);
+            }}
+          />
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="end">
-        <FlexboxGridItem>
-          <Button
-            style={{ marginRight: 10, marginTop: 20, width: 140 }}
-            appearance="primary"
-            onClick={addProject}
-          >
-            <p>Ajouter</p>
-          </Button>
-        </FlexboxGridItem>
-      </FlexboxGrid>
-    </Panel>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 20 }}>
+          <label>Directeur:</label>
+          <Input
+            style={styles}
+            value={directeur}
+            onChange={(newValue) => {
+              setDirecteur(newValue);
+            }}
+          />
+        </FlexboxGrid>
+
+        <FlexboxGrid justify="end">
+          <FlexboxGridItem>
+            <Button
+              style={{ marginRight: 10, marginTop: 20, width: 140 }}
+              appearance="primary"
+              onClick={addProject}
+            >
+              <p>Ajouter</p>
+            </Button>
+          </FlexboxGridItem>
+        </FlexboxGrid>
+      </Panel>
+    </>
   );
 };
 

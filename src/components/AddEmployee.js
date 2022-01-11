@@ -3,6 +3,7 @@ import axios from "axios";
 import { Panel, Button, FlexboxGrid, Input, Loader, Dropdown } from "rsuite";
 import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import { useLocation } from "react-router-dom";
+import NavCust from "./NavCust.js";
 
 const styles = {
   marginTop: 5,
@@ -11,7 +12,7 @@ const styles = {
 
 const AddEmployee = () => {
   const location = useLocation();
-
+  const [active, setActive] = React.useState("employes");
   const [attenteModifier, setAttenteModifier] = React.useState(false);
   const [project, setProject] = React.useState("");
   const [numero, setNumero] = React.useState("");
@@ -113,243 +114,246 @@ const AddEmployee = () => {
   };
 
   return (
-    <Panel
-      header="Ajout d'un nouvel employé"
-      bordered
-      style={{ marginTop: 20 }}
-    >
-      <FlexboxGrid style={{ marginTop: 50 }} justify="space-between">
-        <FlexboxGridItem colspan={7}>
-          <label>Matricule:</label>
-          <Input
-            style={styles}
-            value={matricule}
-            onChange={(newValue) => {
-              setMatricule(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+    <>
+      <NavCust appearance="tabs" active={active} onSelect={setActive} />
+      <Panel
+        header="Ajout d'un nouvel employé"
+        bordered
+        style={{ marginTop: 20 }}
+      >
+        <FlexboxGrid style={{ marginTop: 50 }} justify="space-between">
+          <FlexboxGridItem colspan={7}>
+            <label>Matricule:</label>
+            <Input
+              style={styles}
+              value={matricule}
+              onChange={(newValue) => {
+                setMatricule(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={7}>
-          <label>Nom:</label>
-          <Input
-            value={nom}
-            style={styles}
-            onChange={(newValue) => {
-              setNom(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+          <FlexboxGridItem colspan={7}>
+            <label>Nom:</label>
+            <Input
+              value={nom}
+              style={styles}
+              onChange={(newValue) => {
+                setNom(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={7}>
-          <label>Date de naiss:</label>
-          <Input
-            value={dateNaiss}
-            style={styles}
-            onChange={(newValue) => {
-              setDateNaiss(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
+          <FlexboxGridItem colspan={7}>
+            <label>Date de naiss:</label>
+            <Input
+              value={dateNaiss}
+              style={styles}
+              onChange={(newValue) => {
+                setDateNaiss(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
 
-      <label>Lieu de naiss:</label>
-      <Input
-        style={styles}
-        value={lieuNaiss}
-        onChange={(newValue) => {
-          setLieuNaiss(newValue);
-        }}
-      />
+        <label>Lieu de naiss:</label>
+        <Input
+          style={styles}
+          value={lieuNaiss}
+          onChange={(newValue) => {
+            setLieuNaiss(newValue);
+          }}
+        />
 
-      <label>Adresse:</label>
-      <Input
-        style={styles}
-        value={adress}
-        onChange={(newValue) => {
-          setAdress(newValue);
-        }}
-      />
+        <label>Adresse:</label>
+        <Input
+          style={styles}
+          value={adress}
+          onChange={(newValue) => {
+            setAdress(newValue);
+          }}
+        />
 
-      <FlexboxGrid style={{ marginTop: 40 }} justify="space-between">
-        <FlexboxGridItem colspan={10}>
-          <label>Numero:</label>
-          <Input
-            style={styles}
-            value={numero}
-            onChange={(newValue) => {
-              setNumero(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+        <FlexboxGrid style={{ marginTop: 40 }} justify="space-between">
+          <FlexboxGridItem colspan={10}>
+            <label>Numero:</label>
+            <Input
+              style={styles}
+              value={numero}
+              onChange={(newValue) => {
+                setNumero(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={10}>
-          <label>Entite:</label>
-          <Input
-            style={styles}
-            value={project}
-            onChange={(newValue) => {
-              setProject(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
-      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
-        <FlexboxGridItem colspan={10}>
-          <label>Poste:</label>
-          <Input
-            style={styles}
-            value={poste}
-            onChange={(newValue) => {
-              setPoste(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+          <FlexboxGridItem colspan={10}>
+            <label>Entite:</label>
+            <Input
+              style={styles}
+              value={project}
+              onChange={(newValue) => {
+                setProject(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+          <FlexboxGridItem colspan={10}>
+            <label>Poste:</label>
+            <Input
+              style={styles}
+              value={poste}
+              onChange={(newValue) => {
+                setPoste(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={10}>
-          <label>Classification:</label>
-          <Input
-            style={styles}
-            value={classification}
-            onChange={(newValue) => {
-              setClassification(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
+          <FlexboxGridItem colspan={10}>
+            <label>Classification:</label>
+            <Input
+              style={styles}
+              value={classification}
+              onChange={(newValue) => {
+                setClassification(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
-        <FlexboxGridItem colspan={10}>
-          <label>Affectation:</label>
-          <Input
-            style={styles}
-            value={affectation}
-            onChange={(newValue) => {
-              setAffectation(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+          <FlexboxGridItem colspan={10}>
+            <label>Affectation:</label>
+            <Input
+              style={styles}
+              value={affectation}
+              onChange={(newValue) => {
+                setAffectation(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={10}>
-          <label>Categorie:</label>
-          <Input
-            style={styles}
-            value={categorie}
-            onChange={(newValue) => {
-              setCategorie(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
+          <FlexboxGridItem colspan={10}>
+            <label>Categorie:</label>
+            <Input
+              style={styles}
+              value={categorie}
+              onChange={(newValue) => {
+                setCategorie(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
-        <FlexboxGridItem colspan={10}>
-          <label>Section:</label>
-          <Input
-            style={styles}
-            value={section}
-            onChange={(newValue) => {
-              setSection(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+          <FlexboxGridItem colspan={10}>
+            <label>Section:</label>
+            <Input
+              style={styles}
+              value={section}
+              onChange={(newValue) => {
+                setSection(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={10}>
-          <label>Groupe:</label>
-          <Input
-            style={styles}
-            value={groupe}
-            onChange={(newValue) => {
-              setGroupe(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
+          <FlexboxGridItem colspan={10}>
+            <label>Groupe:</label>
+            <Input
+              style={styles}
+              value={groupe}
+              onChange={(newValue) => {
+                setGroupe(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
-        <FlexboxGridItem colspan={10}>
-          <label>Statut:</label>
-          <Input
-            style={styles}
-            value={statut}
-            onChange={(newValue) => {
-              setStatut(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+          <FlexboxGridItem colspan={10}>
+            <label>Statut:</label>
+            <Input
+              style={styles}
+              value={statut}
+              onChange={(newValue) => {
+                setStatut(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={10}>
-          <label>Période essai:</label>
-          <Input
-            style={styles}
-            value={periode}
-            onChange={(newValue) => {
-              setPeriode(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
+          <FlexboxGridItem colspan={10}>
+            <label>Période essai:</label>
+            <Input
+              style={styles}
+              value={periode}
+              onChange={(newValue) => {
+                setPeriode(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
-        <FlexboxGridItem colspan={10}>
-          <label>Salaire:</label>
-          <Input
-            style={styles}
-            value={salaire}
-            onChange={(newValue) => {
-              setSalaire(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+          <FlexboxGridItem colspan={10}>
+            <label>Salaire:</label>
+            <Input
+              style={styles}
+              value={salaire}
+              onChange={(newValue) => {
+                setSalaire(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={10}>
-          <label>Salaire Lettres:</label>
-          <Input
-            style={styles}
-            value={salaireLettres}
-            onChange={(newValue) => {
-              setSalaireLettres(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
+          <FlexboxGridItem colspan={10}>
+            <label>Salaire Lettres:</label>
+            <Input
+              style={styles}
+              value={salaireLettres}
+              onChange={(newValue) => {
+                setSalaireLettres(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
-        <FlexboxGridItem colspan={10}>
-          <label>Date debut:</label>
-          <Input
-            style={styles}
-            value={dateDebut.substring(0, 10)}
-            onChange={(newValue) => {
-              setDateDebut(newValue);
-            }}
-          />
-        </FlexboxGridItem>
+        <FlexboxGrid justify="space-between" style={{ marginTop: 40 }}>
+          <FlexboxGridItem colspan={10}>
+            <label>Date debut:</label>
+            <Input
+              style={styles}
+              value={dateDebut.substring(0, 10)}
+              onChange={(newValue) => {
+                setDateDebut(newValue);
+              }}
+            />
+          </FlexboxGridItem>
 
-        <FlexboxGridItem colspan={10}>
-          <label>Date fin:</label>
-          <Input
-            style={styles}
-            value={dateFin.substring(0, 10)}
-            onChange={(newValue) => {
-              setDateFin(newValue);
-            }}
-          />
-        </FlexboxGridItem>
-      </FlexboxGrid>
+          <FlexboxGridItem colspan={10}>
+            <label>Date fin:</label>
+            <Input
+              style={styles}
+              value={dateFin.substring(0, 10)}
+              onChange={(newValue) => {
+                setDateFin(newValue);
+              }}
+            />
+          </FlexboxGridItem>
+        </FlexboxGrid>
 
-      <FlexboxGrid justify="end">
-        <FlexboxGrid.Item>
-          <Button
-            style={{ marginRight: 10, marginTop: 20, width: 140 }}
-            appearance="primary"
-            onClick={addEmployee}
-          >
-            {!attenteModifier ? <p>Ajouter</p> : <Loader />}
-          </Button>
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
-    </Panel>
+        <FlexboxGrid justify="end">
+          <FlexboxGrid.Item>
+            <Button
+              style={{ marginRight: 10, marginTop: 20, width: 140 }}
+              appearance="primary"
+              onClick={addEmployee}
+            >
+              {!attenteModifier ? <p>Ajouter</p> : <Loader />}
+            </Button>
+          </FlexboxGrid.Item>
+        </FlexboxGrid>
+      </Panel>
+    </>
   );
 };
 

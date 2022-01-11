@@ -6,6 +6,7 @@ import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import { useLocation, useRouteMatch } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Contrat from "./Contrat";
+import NavCust from "./NavCust";
 
 const styles = {
   marginTop: 5,
@@ -16,6 +17,7 @@ const Details = () => {
   const { path, url } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const [active, setActive] = React.useState("projets");
   console.log(localStorage.getItem("employeeId"));
   const identifiant = JSON.stringify(useParams().id);
   const employeeId = localStorage.getItem("employeeId");
@@ -81,6 +83,7 @@ const Details = () => {
 
   return (
     <>
+      <NavCust appearance="tabs" active={active} onSelect={setActive} />
       <Panel header="Information employé" bordered style={{ marginTop: 20 }}>
         <FlexboxGrid justify="space-between">
           <FlexboxGridItem colspan={7}>
