@@ -14,6 +14,7 @@ import NavCust from "./components/NavCust";
 import Register from "./components/Register";
 import DataGrid from "./components/DataGrid";
 import Projets from "./components/Projets";
+
 const Main = () => {
   return (
     <Router>

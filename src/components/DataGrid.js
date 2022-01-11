@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import Details from "./Details";
 import AddEmployee from "./AddEmployee";
+import NavCust from "./NavCust";
 import { useLocation } from "react-router-dom";
 const { Cell, HeaderCell, Column } = Table;
 
@@ -18,6 +19,7 @@ const DataGrid = () => {
   let { path, url } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const [active, setActive] = React.useState("employes");
   const { innerHeight } = window;
   const [employees, setEmployees] = React.useState([]);
   const [loadingEmployees, setLoadingEmployees] = React.useState(false);
@@ -56,6 +58,7 @@ const DataGrid = () => {
         <Route path={`${path}/ajouter`} component={AddEmployee} />
 
         <Route path={path}>
+          <NavCust appearance="tabs" active={active} onSelect={setActive} />
           <Button
             onClick={addEmployee}
             appearance="primary"

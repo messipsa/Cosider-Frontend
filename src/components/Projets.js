@@ -13,8 +13,10 @@ import { Button, Table, ButtonToolbar } from "rsuite";
 import axios from "axios";
 import ModifyProject from "./ModifyProject";
 import AddProject from "./AddProject";
+import NavCust from "./NavCust.js";
 
 const Projets = () => {
+  const [active, setActive] = React.useState("projets");
   const { url, path } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
@@ -62,6 +64,7 @@ const Projets = () => {
       <Route path={`${path}/ajouter`} component={AddProject} />
 
       <Route path={path}>
+        <NavCust appearance="tabs" active={active} onSelect={setActive} />
         <Button
           appearance="primary"
           color="red"
