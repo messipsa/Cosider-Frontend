@@ -14,6 +14,7 @@ const Contrat = ({ employee, history }) => {
   const location = useLocation();
 
   console.log(JSON.parse(employee));
+  const [isDownloading, setIsDownloading] = React.useState(false);
   const [lecture, setLecture] = React.useState(true);
   const [attenteModifier, setAttenteModifier] = React.useState(false);
   const [project, setProject] = React.useState(
@@ -58,6 +59,30 @@ const Contrat = ({ employee, history }) => {
   const [periode, setPeriode] = React.useState(
     JSON.parse(employee).contrat.periode_essai
   );
+
+  const downloadContract = () => {
+    setIsDownloading(true);
+    var data = "";
+
+    var config = {
+      method: "get",
+      url: `http://localhost:5000/api/contrats/download/${
+        JSON.parse(employee)._id
+      }`,
+      headers: {},
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setIsDownloading(false);
+        alert("email reçu avec succès");
+      })
+      .catch(function (error) {
+        setIsDownloading(false);
+        alert("On a enregistré un problème d'envoi du mail");
+      });
+  };
 
   const renouvelerContrat = () => {
     setLecture(false);
@@ -300,6 +325,15 @@ const Contrat = ({ employee, history }) => {
       </FlexboxGrid>
 
       <FlexboxGrid justify="end">
+        <FlexboxGrid.Item>
+          <Button
+            style={{ marginRight: 10, marginTop: 20, width: 140 }}
+            appearance="primary"
+            onClick={downloadContract}
+          >
+            {!isDownloading ? <p>Telecharger Contrat</p> : <Loader />}
+          </Button>
+        </FlexboxGrid.Item>
         <FlexboxGrid.Item>
           <Button
             style={{ marginRight: 10, marginTop: 20, width: 140 }}
