@@ -24,6 +24,7 @@ const Projets = () => {
   const { Cell, HeaderCell, Column } = Table;
   const [projets, setProjets] = React.useState([]);
   const [LoadingProjects, setLoadingProjects] = React.useState(false);
+  const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
 
   React.useEffect(() => {
     getProjects();
@@ -35,7 +36,9 @@ const Projets = () => {
     var config = {
       method: "get",
       url: "http://localhost:5000/api/projets",
-      headers: {},
+      headers: {
+        Authorization: token,
+      },
       data: data,
     };
 

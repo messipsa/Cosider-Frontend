@@ -35,6 +35,8 @@ const Login = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data));
+        console.log(JSON.parse(localStorage.getItem("user")).token);
         setLoadingConnex(false);
         alert("Connexion réussie");
         history.push("/home");

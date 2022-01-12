@@ -24,6 +24,8 @@ const DataGrid = () => {
   const [employees, setEmployees] = React.useState([]);
   const [loadingEmployees, setLoadingEmployees] = React.useState(false);
   const [loadingDeletion, setLoadingDeletion] = React.useState(false);
+
+  const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
   //window.addEventListener('focus', () => getEmployees());
   //window.location.reload();
 
@@ -32,10 +34,19 @@ const DataGrid = () => {
   }, []);
 
   const getEmployees = () => {
-    console.log("obligé");
     setLoadingEmployees(true);
-    axios
-      .get("https://cosider-backend.herokuapp.com/api/employes")
+
+    var data = "";
+
+    var config = {
+      method: "get",
+      url: "http://localhost:5000/api/employes/",
+      headers: {
+        Authorization: token,
+      },
+      data: data,
+    };
+    axios(config)
       .then((response) => {
         setEmployees(response.data);
         setLoadingEmployees(false);
@@ -118,8 +129,10 @@ const DataGrid = () => {
 
                     var config = {
                       method: "delete",
-                      url: `https://cosider-backend.herokuapp.com/api/employes/supprimer/${rowData._id}`,
-                      headers: {},
+                      url: `http://localhost:5000/api/employes/supprimer/${rowData._id}`,
+                      headers: {
+                        Authorization: token,
+                      },
                       data: data,
                     };
 

@@ -38,6 +38,8 @@ const Details = () => {
   const [loadingModify, setLoadingModify] = React.useState(false);
   const [Travailleur, setTravailleur] = React.useState(false);
 
+  const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
+
   React.useEffect(() => {}, []);
 
   const modifyEmployee = () => {
@@ -59,6 +61,7 @@ const Details = () => {
       }`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       data: data,
     };

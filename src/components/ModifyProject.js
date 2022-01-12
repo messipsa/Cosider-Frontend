@@ -22,6 +22,8 @@ const ModifyProject = () => {
   const [lieu, setLieu] = React.useState(projet.lieu);
   const location = useLocation();
 
+  const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
+
   const modifyProject = () => {
     setIsReadOnly(false);
   };
@@ -38,6 +40,7 @@ const ModifyProject = () => {
       url: `http://localhost:5000/api/projets/modifier/${projet._id}`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       data: data,
     };
