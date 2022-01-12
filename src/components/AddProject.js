@@ -18,6 +18,8 @@ const AddProject = () => {
   const [entite, setEntite] = React.useState("");
   const location = useLocation();
 
+  const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
+
   const addProject = () => {
     var data = JSON.stringify({
       entite: entite,
@@ -30,6 +32,7 @@ const AddProject = () => {
       url: "http://localhost:5000/api/projets/ajouter",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       data: data,
     };

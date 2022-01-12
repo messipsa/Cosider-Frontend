@@ -37,31 +37,7 @@ const AddEmployee = () => {
 
   const [projets, setProjets] = React.useState([]);
 
-  React.useEffect(() => {
-    getProjets();
-  }, []);
-
-  const getProjets = () => {
-    var axios = require("axios");
-    var data = "";
-
-    var config = {
-      method: "get",
-      url: "http://localhost:5000/api/projets",
-      headers: {},
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setProjets(JSON.stringify(response.data));
-        console.log(setProjets);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
 
   const addEmployee = () => {
     var data = JSON.stringify({
@@ -93,6 +69,7 @@ const AddEmployee = () => {
       url: "http://localhost:5000/api/employes/ajouter",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       data: data,
     };
@@ -104,6 +81,7 @@ const AddEmployee = () => {
         window.location.reload();
       })
       .catch(function (error) {
+        console.log(data);
         console.log(error.message);
         if (error.message === "Request failed with status code 400") {
           alert("Matricule déja existante dans ce projet");

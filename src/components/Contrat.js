@@ -60,6 +60,8 @@ const Contrat = ({ employee, history }) => {
     JSON.parse(employee).contrat.periode_essai
   );
 
+  const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
+
   const downloadContract = () => {
     setIsDownloading(true);
     var data = "";
@@ -69,7 +71,9 @@ const Contrat = ({ employee, history }) => {
       url: `http://localhost:5000/api/contrats/download/${
         JSON.parse(employee)._id
       }`,
-      headers: {},
+      headers: {
+        Authorization: token,
+      },
       data: data,
     };
 
@@ -113,6 +117,7 @@ const Contrat = ({ employee, history }) => {
       }`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       data: data,
     };
