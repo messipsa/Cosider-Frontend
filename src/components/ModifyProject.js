@@ -48,7 +48,7 @@ const ModifyProject = () => {
     axios(config)
       .then(function (response) {
         setIsReadOnly(true);
-        console.log(JSON.stringify(response.data));
+
         localStorage.setItem("projectId", projet._id);
         localStorage.setItem("project", JSON.stringify(response.data));
         alert("Infos projet modifiés avec succès");

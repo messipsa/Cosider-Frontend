@@ -24,6 +24,7 @@ const Projets = () => {
   const { Cell, HeaderCell, Column } = Table;
   const [projets, setProjets] = React.useState([]);
   const [LoadingProjects, setLoadingProjects] = React.useState(false);
+
   const token = "Bearer " + JSON.parse(localStorage.getItem("user")).token;
 
   React.useEffect(() => {
@@ -46,12 +47,10 @@ const Projets = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setProjets(response.data);
         setLoadingProjects(false);
       })
       .catch(function (error) {
-        console.log(error);
         setLoadingProjects(false);
       });
   };

@@ -119,12 +119,11 @@ const DataGrid = () => {
                       "employeeData",
                       JSON.stringify(rowData)
                     );
-                    console.log(localStorage.getItem("employeeData"));
                   };
 
                   const deleteEmployee = () => {
                     setLoadingDeletion(true);
-                    console.log("identifiant : " + rowData._id);
+
                     var data = "";
 
                     var config = {
