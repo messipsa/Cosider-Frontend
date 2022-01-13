@@ -18,11 +18,11 @@ const Details = () => {
   const history = useHistory();
   const location = useLocation();
   const [active, setActive] = React.useState("projets");
-  console.log(localStorage.getItem("employeeId"));
+
   const identifiant = JSON.stringify(useParams().id);
   const employeeId = localStorage.getItem("employeeId");
   const employeeData = localStorage.getItem("employeeData");
-  console.log(JSON.parse(employeeData));
+
   //const [employee ,setEmployee] = React.useState([]);
   const [employee, setEmployee] = React.useState(employeeData);
 
@@ -71,7 +71,7 @@ const Details = () => {
       .then(function (response) {
         localStorage.setItem("employeeId", response.data._id);
         localStorage.setItem("employeeData", JSON.stringify(response.data));
-        console.log(JSON.stringify(response.data));
+
         setLoadingModify(false);
         alert("Informations d'employé modifiées avec succès");
         setIsReadOnly(true);

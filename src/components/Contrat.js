@@ -13,7 +13,6 @@ const styles = {
 const Contrat = ({ employee, history }) => {
   const location = useLocation();
 
-  console.log(JSON.parse(employee));
   const [isDownloading, setIsDownloading] = React.useState(false);
   const [lecture, setLecture] = React.useState(true);
   const [attenteModifier, setAttenteModifier] = React.useState(false);

@@ -2,6 +2,7 @@ import React from "react";
 import { Nav, Navbar } from "rsuite";
 import { Button } from "rsuite";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 
 const styles = {
   margin: 10,
@@ -15,6 +16,27 @@ const BrandStyle = {
 
 const NavCust = ({ active, onSelect, props }) => {
   const history = useHistory();
+
+  const logout = () => {
+    var data = "";
+
+    var config = {
+      method: "post",
+      url: "http://localhost:5000/api/user/logout",
+      headers: {},
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        alert("Déconnexion réussie");
+        history.push("/");
+      })
+      .catch(function (error) {
+        alert("Une erreur survenu lors de la déconnexion");
+      });
+  };
 
   return (
     <Navbar>
@@ -50,6 +72,15 @@ const NavCust = ({ active, onSelect, props }) => {
         >
           Projets
         </Nav.Item>
+
+        <Button
+          style={{ margin: 15, marginTop: 10, marginLeft: 30, width: 130 }}
+          color="red"
+          appearance="primary"
+          onClick={logout}
+        >
+          Se déconnecter
+        </Button>
       </Nav>
     </Navbar>
   );
