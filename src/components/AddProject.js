@@ -4,6 +4,7 @@ import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import NavCust from "./NavCust";
+import swal from "sweetalert";
 
 const styles = {
   marginTop: 5,
@@ -40,12 +41,13 @@ const AddProject = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        alert("Projet ajouté avec succès");
-        window.location.reload();
+        swal("Projet ajouté avec succès", "", "success").then(() =>
+          window.location.reload()
+        );
       })
       .catch(function (error) {
         console.log(error);
-        alert("Echec de l'ajout du projet");
+        swal("Echec de l'ajout du projet", "", "error");
       });
   };
 

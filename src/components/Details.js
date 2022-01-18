@@ -7,6 +7,7 @@ import { useLocation, useRouteMatch } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Contrat from "./Contrat";
 import NavCust from "./NavCust";
+import swal from "sweetalert";
 
 const styles = {
   marginTop: 5,
@@ -73,13 +74,16 @@ const Details = () => {
         localStorage.setItem("employeeData", JSON.stringify(response.data));
 
         setLoadingModify(false);
-        alert("Informations d'employé modifiées avec succès");
         setIsReadOnly(true);
-        window.location.reload();
+        swal(
+          "Informations d'employé modifiées avec succès",
+          "",
+          "success"
+        ).then(() => window.location.reload());
       })
       .catch(function (error) {
         setTimeout(setLoadingModify(false), 1000);
-        alert("Echec de la modification d'informations d'employé");
+        swal("Echec de la modification d'informations d'employé", "", "error");
         setIsReadOnly(true);
       });
   };

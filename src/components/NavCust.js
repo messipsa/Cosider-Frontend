@@ -3,6 +3,7 @@ import { Nav, Navbar } from "rsuite";
 import { Button } from "rsuite";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
+import swal from "sweetalert";
 
 const styles = {
   margin: 10,
@@ -30,11 +31,11 @@ const NavCust = ({ active, onSelect, props }) => {
     axios(config)
       .then(function (response) {
         localStorage.setItem("user", JSON.stringify(response.data));
-        alert("Déconnexion réussie");
+        swal("Déconnexion réussie", "", "success");
         history.push("/");
       })
       .catch(function (error) {
-        alert("Une erreur survenu lors de la déconnexion");
+        swal("Une erreur survenu lors de la déconnexion", "", "error");
       });
   };
 
