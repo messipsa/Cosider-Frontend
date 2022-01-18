@@ -8,6 +8,8 @@ import {
 } from "react-icons/ai";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
+
 const Register = () => {
   const history = useHistory();
   const [visible, setVisible] = React.useState(false);
@@ -41,12 +43,12 @@ const Register = () => {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setLoadingRegister(false);
-        alert("Utilisateur créé avec succès");
+        swal("Utilisateur créé avec succès", "", "success");
         history.push("/");
       })
       .catch(function (error) {
         setLoadingRegister(false);
-        alert("Echec de la création de compte");
+        swal("Echec de la création de compte", "", "error");
         console.log(error);
       });
   };

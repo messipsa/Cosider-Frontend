@@ -13,6 +13,7 @@ import Details from "./Details";
 import AddEmployee from "./AddEmployee";
 import NavCust from "./NavCust";
 import { useLocation } from "react-router-dom";
+import swal from "sweetalert";
 const { Cell, HeaderCell, Column } = Table;
 
 const DataGrid = () => {
@@ -138,13 +139,20 @@ const DataGrid = () => {
                     axios(config)
                       .then((response) => {
                         console.log(JSON.stringify(response.data));
-                        alert("Employé supprimé avec succès ");
+                        swal(
+                          "Employé supprimé avec succès ",
+                          "",
+                          "success"
+                        ).then(() => window.location.reload());
                         setLoadingDeletion(false);
-                        window.location.reload();
                       })
                       .catch((error) => {
                         console.log(error);
-                        alert("Echec de la suppression de l'employé");
+                        swal(
+                          "Echec de la suppression de l'employé",
+                          "",
+                          "error"
+                        );
                         setLoadingDeletion(false);
                       });
                     // window.location.reload()

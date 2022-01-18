@@ -4,6 +4,7 @@ import { Panel, Button, FlexboxGrid, Input, Loader, Dropdown } from "rsuite";
 import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import { useLocation } from "react-router-dom";
 import NavCust from "./NavCust.js";
+import swal from "sweetalert";
 
 const styles = {
   marginTop: 5,
@@ -77,16 +78,21 @@ const AddEmployee = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        alert("Employé ajouté correctement");
-        window.location.reload();
+        swal("Employé ajouté correctement", "", "success").then(() =>
+          window.location.reload()
+        );
       })
       .catch(function (error) {
         console.log(data);
         console.log(error.message);
         if (error.message === "Request failed with status code 400") {
-          alert("Matricule déja existante dans ce projet");
+          swal("Matricule déja existante dans ce projet", "", "error");
         } else {
-          alert("Tous les chmaps doivent etre remplis correctement");
+          swal(
+            "Tous les chmaps doivent etre remplis correctement",
+            "",
+            "error"
+          );
         }
       });
   };

@@ -3,6 +3,7 @@ import { Panel, FlexboxGrid, Input, InputGroup, Button, Loader } from "rsuite";
 import { AiFillEye, AiFillEyeInvisible, AiOutlineMail } from "react-icons/ai";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import axios from "axios";
+import swal from "sweetalert";
 
 const Login = () => {
   const history = useHistory();
@@ -37,12 +38,12 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response.data));
 
         setLoadingConnex(false);
-        alert("Connexion réussie");
+        swal("Connexion réussie", "", "success");
         history.push("/home");
       })
       .catch(function (error) {
         setLoadingConnex(false);
-        alert("Echec de la connexion");
+        swal("Echec de la connexion", "", "error");
       });
   };
 

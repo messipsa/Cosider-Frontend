@@ -4,6 +4,7 @@ import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import NavCust from "./NavCust.js";
+import swal from "sweetalert";
 
 const styles = {
   marginTop: 5,
@@ -51,13 +52,14 @@ const ModifyProject = () => {
 
         localStorage.setItem("projectId", projet._id);
         localStorage.setItem("project", JSON.stringify(response.data));
-        alert("Infos projet modifiés avec succès");
-        window.location.reload();
+        swal("Infos projet modifiés avec succès", "", "success").then(() =>
+          window.location.reload()
+        );
       })
       .catch(function (error) {
         setIsReadOnly(true);
         console.log(error);
-        alert("Echec de la modification d'infos projet");
+        swal("Echec de la modification d'infos projet", "", "error");
       });
   };
 

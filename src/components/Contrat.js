@@ -4,6 +4,7 @@ import { Panel, Input, FlexboxGrid, Button, Message, Loader } from "rsuite";
 import FlexboxGridItem from "rsuite/esm/FlexboxGrid/FlexboxGridItem";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import swal from "sweetalert";
 
 const styles = {
   marginTop: 5,
@@ -79,11 +80,11 @@ const Contrat = ({ employee, history }) => {
     axios(config)
       .then(function (response) {
         setIsDownloading(false);
-        alert("email reçu avec succès");
+        swal("email reçu avec succès", "", "success");
       })
       .catch(function (error) {
         setIsDownloading(false);
-        alert("On a enregistré un problème d'envoi du mail");
+        swal("On a enregistré un problème d'envoi du mail", "", "error");
       });
   };
 
@@ -128,18 +129,23 @@ const Contrat = ({ employee, history }) => {
         setAttenteModifier(false);
         localStorage.setItem("employeeId", response.data._id);
         localStorage.setItem("employeeData", JSON.stringify(response.data));
-        alert("Contrat renouvelé avec succès");
+        swal("Contrat renouvelé avec succès", "", "success").then(() =>
+          window.location.reload()
+        );
         setLecture(true);
-        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
         setAttenteModifier(false);
         setLecture(true);
         if (error.message === "Request failed with status code 400") {
-          alert("Matricule déja existant dans ce projet");
+          swal("Matricule déja existant dans ce projet", "", "error");
         } else {
-          alert("Tous les chmaps doivent etre remplis correctement");
+          swal(
+            "Tous les chmaps doivent etre remplis correctement",
+            "",
+            "error"
+          );
         }
       });
   };
